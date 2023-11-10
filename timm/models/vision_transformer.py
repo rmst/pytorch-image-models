@@ -682,9 +682,9 @@ class VisionTransformer(nn.Module):
         return x if pre_logits else self.head(x)
 
     def forward(self, x):
-        x = self.forward_features(x)
-        x = self.forward_head(x)
-        return x
+        tokens = self.forward_features(x)
+        cls_token = self.forward_head(tokens)
+        return cls_token, tokens
 
 
 def init_weights_vit_timm(module: nn.Module, name: str = ''):
